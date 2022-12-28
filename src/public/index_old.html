@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      body {
+        margin: 0;
+        padding-bottom: 3rem;
+        font-family: Helvetica, Arial, sans-serif;
+      }
+
+      #form {
+        background: rgba(0, 0, 0, 0.15);
+        padding: 0.25rem;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        height: 3rem;
+        box-sizing: border-box;
+        backdrop-filter: blur(10px);
+      }
+
+      #input {
+        border: none;
+        padding: 0 1rem;
+        flex-grow: 1;
+        border-radius: 2rem;
+        margin: 0.25rem;
+      }
+
+      #input:focus {
+        outline: none;
+      }
+
+      #form > button {
+        background: #333;
+        border: none;
+        padding: 0 1rem;
+        margin: 0.25rem;
+        border-radius: 3px;
+        outline: none;
+        color: #fff;
+      }
+
+      #messages {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      #messages > li {
+        padding: 0.5rem 1rem;
+      }
+
+      #messages > li:nth-child(odd) {
+        background: #efefef;
+      }
+    </style>
+  </head>
+  <body>
+    <label>From User</label>
+    <select id="fromUser">
+      <option value="from">From</option>
+      <option value="user1">User 1</option>
+      <option value="user2">User 2</option>
+    </select>
+
+    <label>To User</label>
+    <select id="toUser">
+      <option value="to">To</option>
+      <option value="user1">User 1</option>
+      <option value="user2">User 2</option>
+    </select>
+    <button id="connect">Connect</button>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+      <input id="input" placeholder="Say Something..." autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      let socket;
+      let fromUser = '';
+      let toUser = '';
+      document.querySelector('#fromUser').addEventListener('change', (event) => {
+        fromUser = event.target.value;
+      });
+
+      document.querySelector('#toUser').addEventListener('change', () => {
+        toUser = event.target.value;
+      });
+
+      document.querySelector('#connect').addEventListener('click', () => {
+        socket = io();
+
+        socket.on('messageFromServer', function (payload) {
+          var item = document.createElement('li');
+          const { from, msg } = payload;
+          item.innerHTML = `<b>${from} :</b> ${msg}`;
+          messages.appendChild(item);
+          window.scrollTo(0, document.body.scrollHeight);
+        });
+
+        socket.on('ack', (id) => {
+          socket.emit('re-ack', {
+            clientId: fromUser,
+            socketId: id,
+          });
+        });
+      });
+
+      var messages = document.getElementById('messages');
+      var form = document.getElementById('form');
+      var input = document.getElementById('input');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (input.value != '' && socket) {
+          socket.emit('messageFromClient', { from: fromUser, to: toUser, msg: input.value });
+          input.value = '';
+        }
+      });
+    </script>
+  </body>
+</html>

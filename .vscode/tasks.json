@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "dev-debug:pm2",
+			"path": "services/",
+			"problemMatcher": [],
+			"label": "Debug PM2 - Services",
+			"detail": "pm2 start ecosystem.config.js --env development_debug --watch && echo \"Starting the server in debuggable watch mode. Attach debugger from vscode for the server to respond.\" && pm2 logs"
+		}
+	]
+}

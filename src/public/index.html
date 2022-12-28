@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <style>
+      * {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        box-sizing: border-box;
+      }
+
+      html {
+        width: 100%;
+        height: 100%;
+      }
+
+      body {
+        background: linear-gradient(
+          45deg,
+          rgba(66, 183, 245, 0.8) 0%,
+          rgba(66, 245, 189, 0.4) 100%
+        );
+        margin: 0;
+      }
+
+      input,
+      textarea,
+      select {
+        border: solid 1px #ccc;
+        border-radius: 3px;
+        display: inline-block;
+        padding: 0.5rem 0.75rem;
+        width: 100%;
+        font-family: inherit;
+        font-size: 1rem;
+      }
+
+      input:focus,
+      textarea:focus,
+      select:focus {
+        outline: none;
+        box-shadow: 0 0 0 2pt rgb(49, 132, 253, 0.5);
+      }
+
+      input.error,
+      textarea.error,
+      select.error {
+        border-color: #dc3545;
+      }
+
+      input.error:focus,
+      textarea.error:focus,
+      select.error:focus {
+        box-shadow: 0 0 0 0.25rem rgb(220 53 69 / 25%);
+      }
+
+      ::placeholder {
+        color: #acacac;
+      }
+
+      .container {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      .item {
+        display: flex;
+        flex: 1 1 0;
+        align-content: center;
+        justify-content: center;
+        width: 0;
+      }
+
+      .app-title {
+        color: #3e4042;
+      }
+
+      .form-container {
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        width: 350px;
+        margin: auto;
+      }
+
+      .form-heading {
+        color: #0d6efd;
+        margin: 0.5rem;
+        text-align: center;
+      }
+
+      .login-form {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      .field {
+        margin-bottom: 0.8rem;
+      }
+
+      button {
+        background: #0d6efd;
+        color: #fff;
+        border-radius: 0.25rem;
+        font-size: 1rem;
+        font-weight: 400;
+        border: 1px solid #0d6efd;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+          border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        text-align: center;
+        padding: 0.375rem 0.75rem;
+        width: 100%;
+      }
+
+      button:hover {
+        background: #0b5ed7;
+        border-color: #0a58ca;
+        cursor: pointer;
+      }
+    </style>
+    <div class="container">
+      <div class="item app-title"><h1>Appinno</h1></div>
+      <div class="item">
+        <div class="form-container">
+          <form id="loginForm" class="login-form">
+            <h3 class="form-heading">Sign In</h3>
+            <div class="field">
+              <input id="username" type="text" name="username" placeholder="Username" />
+            </div>
+            <div class="field">
+              <input id="password" type="password" name="password" placeholder="Password" />
+            </div>
+            <div>
+              <button id="loginBtn">Sign In</button>
+            </div>
+          </form>
+
+        
+
+          <script>
+            const loginBtn = document.querySelector('#loginBtn');
+            loginBtn && loginBtn.addEventListener('click', loginHandler);
+            function loginHandler(event) {
+              const forms = document.forms;
+              const { loginForm } = forms;
+              loginForm.action = '/api/auth';
+              loginForm.method = 'POST';
+              loginForm.submit();
+              event.preventDefault();
+            }
+          </script>
+        </div>
+      </div>
+    </div>
+
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>
