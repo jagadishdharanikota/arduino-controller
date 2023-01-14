@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "node -r dotenv/config src/server.js",
     "start-with-dot": "node -r dotenv/config src/server.js",
     "dev": "node -r dotenv/config --trace-sync-io src/server.js",
     "debug:express": "SET DEBUG=express:* & node -r dotenv/config src/server.js",
