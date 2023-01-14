@@ -5,7 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node -r dotenv/config src/server.js",
+    "start": "node src/server.js",
+    "start-with-dot": "node -r dotenv/config src/server.js",
     "dev": "node -r dotenv/config --trace-sync-io src/server.js",
     "debug:express": "SET DEBUG=express:* & node -r dotenv/config src/server.js",
     "dev:pm2": "pm2 start ecosystem.config.js --env development --watch",
@@ -42,7 +43,8 @@
     "pm2": "^4.4.1",
     "promise": "^8.0.3",
     "socket.io": "^4.1.3",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
