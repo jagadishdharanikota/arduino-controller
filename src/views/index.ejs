@@ -220,6 +220,8 @@
               clients = data;
 
               const select = document.getElementById('clients');
+              // Remove old children
+              Array.from(select.children)?.forEach(option => select.remove(option));
               Object.keys(data).map((name) => {
                 select.options.add(new Option(name, name))
               })
